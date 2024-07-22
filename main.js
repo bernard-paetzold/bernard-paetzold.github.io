@@ -122,6 +122,15 @@ document.addEventListener('DOMContentLoaded', function() {
            sound.play();
         }
     }
+
+    const musicOne = document.getElementById('music-one');
+    const radio = document.getElementById('radio');
+
+    radio.onclick = function() {
+        musicOne.currentTime = 0;
+        musicOne.play();
+    }
+
 });
 
 
