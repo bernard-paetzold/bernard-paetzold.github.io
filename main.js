@@ -5,13 +5,18 @@ let console_text = "";
 let input_text = "";
 let cursor_visible = false;
 
+//Elements
+let scene;
 let screenContent = document.getElementById("screen-content");
-
 let screen = document.getElementById("crt-screen");
+let powerButton = document.getElementById("power-button");
+
+//State variables
+let computerOn = false;
 
 const fontSize = 18;
 const textSpacing = 1.2;
-const lineSpacing = 4;
+const lineSpacing = 1;
 
 const rows = 100;
 const columns = 100;
@@ -19,15 +24,110 @@ const columns = 100;
 const rotation = 0.4;
 
 document.addEventListener('DOMContentLoaded', function() {
+    scene = document.getElementById("scene");
     screenContent = document.getElementById("screen-content");
     screen = document.getElementById("crt-screen");
-    renderText();
+    powerButton = document.getElementById("power-button");
+    //renderText();
+
+    //Button clicks
+
+
+    powerButton.onclick = function() {
+        computerOn = !computerOn;
+
+        if (computerOn) {
+            powerButton.style.backgroundImage = "url('./assets/power-button-on.png')";
+        }
+        else {
+            powerButton.style.backgroundImage = "url('./assets/power-button.png')";
+        }
+
+        //Make computer fullscreen
+        toggleComputer();
+    }
+
+    powerButton.onmousedown = function() {
+        powerButton.style.backgroundImage = "url('./assets/power-button-pressed.png')";
+
+        const sound = document.getElementById('power-button-sound-down');
+        sound.currentTime = 0;
+        sound.play();
+    }
+
+    powerButton.onmouseup = function() {
+        const sound = document.getElementById('power-button-sound-up');
+        sound.currentTime = 0;
+        sound.play();
+    }
+
+    powerButton.onmouseover = function() {
+        if (computerOn) {
+            powerButton.style.backgroundImage = "url('./assets/power-button-on-hover.png')";
+        }
+        else {
+            powerButton.style.backgroundImage = "url('./assets/power-button-hover.png')";
+        }
+    }
+
+    powerButton.onmouseout = function() {
+        if (computerOn) {
+            powerButton.style.backgroundImage = "url('./assets/power-button-on.png')";
+        }
+        else {
+            powerButton.style.backgroundImage = "url('./assets/power-button.png')";
+        }     
+    }
+
+    const mouse = document.querySelector('.mouse');
+
+    document.onmousemove = function(e) {
+        if (computerOn) {
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+
+            let mouseXPercent = (e.clientX / windowWidth) * 100;
+            let mouseYPercent = (e.clientY / windowHeight) * 100;
+
+            // Move virtual mouse
+            mouse.style.left = mouseXPercent / 2 + '%';
+            mouse.style.top = mouseYPercent / 10 + '%';
+
+            let scale = 0.8 + (mouseYPercent / 200);  // Scale between 50% and 100%
+            mouse.style.transform = `scale(${scale})`;
+        }
+        else {
+            mouse.style.left = '0%';
+            mouse.style.top = '0%';
+            mouse.style.transform = `scale(${1})`;
+        }
+    }
+
+    screenContent.onmousedown = function(e) {
+        if (computerOn) {
+           mouse.src = './assets/mouse-clicking.png';
+           
+           const sound = document.getElementById('click-sound-down');
+           sound.currentTime = 0;
+           sound.play();
+        }
+    }
+
+    screenContent.onmouseup = function(e) {
+        if (computerOn) {
+            mouse.src = './assets/mouse.png'; 
+
+            const sound = document.getElementById('click-sound-up');
+           sound.currentTime = 0;
+           sound.play();
+        }
+    }
 });
 
 
 function animateCursor() {
     cursor_visible = !cursor_visible;
-    renderText();
+    //renderText();
 }
 
 
@@ -78,7 +178,7 @@ function renderText() {
                 wrapper.style.top = `${yPercent}%`;
 
                 wrapper.style.transform = `
-                translate(-50%, -50%)
+                translate(-40%, -90%)
                 scale(${scale})
                 rotateX(${(yPercent - 50) * rotation}deg)
                 rotateY(${(xPercent - 50) * -rotation}deg)
@@ -104,6 +204,7 @@ function renderText() {
         yPos += lineSpacing;
     }
 }
+
 
 function handleKeyPress(event) {
     if (event.key === 'Enter') {
@@ -135,7 +236,7 @@ function handleKeyPress(event) {
             input_text += '\n';
         }
     }
-    renderText();
+    //renderText();
 }
 
 document.addEventListener('keydown', handleKeyPress);
@@ -152,4 +253,16 @@ function calculateRows() {
 
 function calculateColumns() {
     return Math.floor(screen.getBoundingClientRect().width / (calculateFontSize() * 0.6)); 
+}
+
+
+
+function toggleComputer() {
+    if (computerOn) {
+        scene.style.transform = 'translate(-40%,0%) scale(2)';
+    }
+    else {
+        scene.style.transform = 'translate(0%,0%) scale(1)';
+    }
+
 }

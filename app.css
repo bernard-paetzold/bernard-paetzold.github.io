@@ -10,7 +10,7 @@ body {
     justify-content: center;
     align-items: center;
     perspective: 1000px;
-    height: 100vh;
+    height: 100%;
     margin: 0;
 
     color: white;
@@ -40,11 +40,11 @@ body {
 
 .crt-screen {
     display: block;
-    width: 65%;
+    width: 45%;
 
     position: absolute;
-    top: 18.5%;
-    left: 17.5%;
+    top: 14%;
+    left: 13.5%;
     overflow: hidden;
 
     aspect-ratio: 1;
@@ -72,9 +72,9 @@ body {
 .screen-content {
     color: rgb(255, 255, 255);
     font-family: monospace;
-    font-size: 1.1rem;
+
     margin: 0;
-    height: 100%;
+    height: 100vh;
     box-sizing: border-box;
 
     display: flex;
@@ -109,8 +109,23 @@ body {
 }
 
 .scene {
+    position: relative;
+    top: 0;
+    left: 0;
+
+    height: 100vh;
+    width: 100vw;
+
+    margin: 0;
+
+    z-index: 10;
+
+    transition: transform 1s;
+}
+
+.backdrop {
     display: block;
-    background-image: url("./assets/backdrop.png");
+    background-image: url("./assets/backdrop.gif");
     background-size: cover;
     background-position: center;
     background-repeat:no-repeat;
@@ -128,16 +143,14 @@ body {
     width: 100vw;
 
     margin: 0;
-
-    z-index: 10;
 }
 
 .computer {
     display: block;
 
     position: absolute;
-    height: 50vmin;
-    width: 50vmin;
+    width: 50%;
+    height: 50%;
     margin: 0;
 
 
@@ -154,10 +167,52 @@ body {
 
     aspect-ratio: 1;
 
-    height: 50%;
     width: auto;
-    top: 50%;  
-    left: 70%; 
-    transform: translate(-50%, -50%); 
+    top: 36%;  
+    left: 60%; 
+
     margin: 0;
+}
+
+.power-button {
+
+    background-image: url("./assets/power-button-export.png");
+    background-size: contain;
+    background-repeat:no-repeat;
+
+    position: relative;
+    top: 50%;
+    left: 62%;
+
+    aspect-ratio: 1;
+    width: 8%;
+    border-radius: 50%;
+}
+
+.mouse-bounds {
+    display: block;
+    position: fixed;
+    top: 68vh;
+    left: 47.2vw;
+
+    height: 2vh;
+    width: 10vw;
+
+    margin: 0;
+}
+
+.mouse {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+
+    width: 40%;
+
+    transition: all 0.1s;
+
+    image-rendering: crisp-edges;
+    image-rendering: -moz-crisp-edges;          
+    image-rendering: -o-crisp-edges;            
+    image-rendering: -webkit-optimize-contrast; 
+    -ms-interpolation-mode: nearest-neighbor;
 }
