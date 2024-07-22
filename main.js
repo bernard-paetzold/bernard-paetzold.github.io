@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    screenContent.onmousedown = function(e) {
+    screenContent.onmousedown = function() {
         if (computerOn) {
            mouse.src = './assets/mouse-clicking.png';
            
@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    screenContent.onmouseup = function(e) {
+    screenContent.onmouseup = function() {
         if (computerOn) {
             mouse.src = './assets/mouse.png'; 
 

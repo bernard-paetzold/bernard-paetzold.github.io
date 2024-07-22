@@ -9,27 +9,30 @@
 </head>
 <body>
     <div id="scene" class="scene">
-        <div id="backdrop" class="backdrop"></div>
-        <div id="radio" class="radio">
-            <audio id="music-one" src="./assets/sounds/summer-rain-lofi-vibes-216043.mp3"></audio>
-        </div>
-        <div id="computer" class="computer">
-            <div id="crt-screen" class="crt-screen">
-                <div class="crt-border"></div>
-                <div class="crt-border-top"></div>
-                <div class="crt-background"></div>
-                <div class="crt-background-top"></div>
-                <div id="screen-content" class="screen-content"></div>
+        <div class="aspect-ratio-container">
+            <div id="backdrop" class="backdrop">
+                <div id="radio" class="radio">
+                    <audio id="music-one" src="./assets/sounds/summer-rain-lofi-vibes-216043.mp3"></audio>
+                </div>
+                <div id="computer" class="computer">
+                    <div id="crt-screen" class="crt-screen">
+                        <div class="crt-border"></div>
+                        <div class="crt-border-top"></div>
+                        <div class="crt-background"></div>
+                        <div class="crt-background-top"></div>
+                        <div id="screen-content" class="screen-content"></div>
+                    </div>
+                    <div id="power-button" class="power-button">
+                        <audio id="power-button-sound-down" src="./assets/sounds/button-sound-down.wav"></audio>
+                        <audio id="power-button-sound-up" src="./assets/sounds/button-sound-up.wav"></audio>
+                    </div>
+                </div>
+                <div class="mouse-bounds">
+                    <img src="./assets/mouse.png" id="mouse" class="mouse">
+                    <audio id="click-sound-down" src="./assets/sounds/mouse-click-down.wav"></audio>
+                    <audio id="click-sound-up" src="./assets/sounds/mouse-click-up.wav"></audio>
+                </div>
             </div>
-            <div id="power-button" class="power-button">
-                <audio id="power-button-sound-down" src="./assets/sounds/button-sound-down.wav"></audio>
-                <audio id="power-button-sound-up" src="./assets/sounds/button-sound-up.wav"></audio>
-            </div>
-        </div>
-        <div class="mouse-bounds">
-            <img src="./assets/mouse.png" id="mouse" class="mouse">
-            <audio id="click-sound-down" src="./assets/sounds/mouse-click-down.wav"></audio>
-            <audio id="click-sound-up" src="./assets/sounds/mouse-click-up.wav"></audio>
         </div>
     </div>
 </body>

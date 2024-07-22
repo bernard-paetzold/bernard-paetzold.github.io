@@ -73,9 +73,8 @@ body {
     color: rgb(255, 255, 255);
     font-family: monospace;
 
-    margin: 0;
-    height: 100vh;
-    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
 
     display: flex;
     flex-direction: column;
@@ -124,80 +123,54 @@ body {
 }
 
 .backdrop {
-    display: block;
-    background-image: url("./assets/backdrop.gif");
-    background-size: cover;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-image: url('./assets/backdrop.gif');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    background-size: contain;
     background-position: center;
     background-repeat:no-repeat;
+
     image-rendering: crisp-edges;
-    image-rendering: -moz-crisp-edges;          
-    image-rendering: -o-crisp-edges;            
-    image-rendering: -webkit-optimize-contrast; 
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -o-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
     -ms-interpolation-mode: nearest-neighbor;
-
-    position: fixed;
-    top: 0;
-    left: 0;
-
-    height: 100vh;
-    width: 100vw;
-
-    margin: 0;
 }
 
 .computer {
-    display: block;
-
     position: absolute;
-    width: 50%;
-    height: 50%;
-    margin: 0;
-
-
-    scale: 100%;
-
-    background-image: url("./assets/background.png");
-    background-size: contain;
-    background-repeat:no-repeat;
-    image-rendering: crisp-edges;
-    image-rendering: -moz-crisp-edges;          
-    image-rendering: -o-crisp-edges;            
-    image-rendering: -webkit-optimize-contrast; 
-    -ms-interpolation-mode: nearest-neighbor;
 
     aspect-ratio: 1;
-
-    width: auto;
-    top: 36%;  
+    width: 30%;
+    
+    top: 31%;  
     left: 60%; 
 
-    margin: 0;
+    background-image: url("./assets/background.png");
+    background-size:contain;
+    background-repeat:no-repeat;
 }
 
 .radio {
-    display: block;
-
-    position: fixed;
-    width: 300px;
-    aspect-ratio: 1;
-    margin: 0;
-
-
-    scale: 100%;
+    position: absolute;
+    width: 10%; 
+    height: 20%; 
+    
+    left: 25%;
+    top: 39%;
+    
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 
     background-image: url("./assets/radio.png");
     background-size: contain;
     background-repeat:no-repeat;
-    image-rendering: crisp-edges;
-    image-rendering: -moz-crisp-edges;          
-    image-rendering: -o-crisp-edges;            
-    image-rendering: -webkit-optimize-contrast; 
-    -ms-interpolation-mode: nearest-neighbor;
-
-    top: 36%;  
-    left:29%; 
-
-    margin: 0;
 }
 
 .power-button {
@@ -216,15 +189,12 @@ body {
 }
 
 .mouse-bounds {
-    display: block;
-    position: fixed;
-    top: 68vh;
-    left: 47.2vw;
+    position: absolute;
+    top: 66%;
+    left: 47.2%;
 
-    height: 2vh;
-    width: 10vw;
-
-    margin: 0;
+    height: 2%;
+    width: 10%;
 }
 
 .mouse {
@@ -235,10 +205,25 @@ body {
     width: 40%;
 
     transition: all 0.1s;
+}
 
+img, .computer, .radio, .mouse .backdrop {
     image-rendering: crisp-edges;
-    image-rendering: -moz-crisp-edges;          
-    image-rendering: -o-crisp-edges;            
-    image-rendering: -webkit-optimize-contrast; 
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -o-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
     -ms-interpolation-mode: nearest-neighbor;
+}
+
+.aspect-ratio-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    max-width: 177.78vh; 
+    max-height: 56.25vw; 
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
