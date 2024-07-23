@@ -13,6 +13,7 @@ let powerButton = document.getElementById("power-button");
 
 //State variables
 let computerOn = false;
+let musicOn = false;
 
 const fontSize = 18;
 const textSpacing = 1.2;
@@ -23,21 +24,47 @@ const columns = 100;
 
 const rotation = 0.4;
 
+//Music
+let currentTrackIndex = 0;
+let currentTrack;
+
+//Sounds
+const music = [];
+
 document.addEventListener('DOMContentLoaded', function() {
     scene = document.getElementById("scene");
     screenContent = document.getElementById("screen-content");
     screen = document.getElementById("crt-screen");
     powerButton = document.getElementById("power-button");
+    const nextButton = document.getElementById("next-button");
+    const prevButton = document.getElementById("prev-button");
+    const pauseButton = document.getElementById("pause-button");
+    const radioScreen = document.getElementById("radio-screen");
+
+    music.push(document.getElementById('track-01'));
+    music.push(document.getElementById('track-02'));
+    music.push(document.getElementById('track-03'));
+    music.push(document.getElementById('track-04'));
+    music.push(document.getElementById('track-05'));
+    music.push(document.getElementById('track-06'));
+    music.push(document.getElementById('track-07'));
+
+    currentTrack = music[currentTrackIndex];
+    radioScreen.textContent = "Track: " + (currentTrackIndex + 1) + "\nPaused";
+
+    screenContent.textContent = "Hello world testing text wrapping";
+
     //renderText();
 
     //Button clicks
-
+    const teaMug = document.getElementById("tea-mug");
 
     powerButton.onclick = function() {
         computerOn = !computerOn;
 
         if (computerOn) {
             powerButton.style.backgroundImage = "url('./assets/power-button-on.png')";
+            teaMug.style.left = 53 + '%';
         }
         else {
             powerButton.style.backgroundImage = "url('./assets/power-button.png')";
@@ -47,20 +74,71 @@ document.addEventListener('DOMContentLoaded', function() {
         toggleComputer();
     }
 
-    powerButton.onmousedown = function() {
-        powerButton.style.backgroundImage = "url('./assets/power-button-pressed.png')";
+    pauseButton.onclick = function() {
+        if (musicOn) {
+            currentTrack.pause();   
+            radioScreen.textContent = "Track: " + (currentTrackIndex + 1) + "\nPaused";
+        }
+        else {
+            currentTrack.play();
+            radioScreen.textContent = "Track: " + (currentTrackIndex + 1);
+        }
 
-        const sound = document.getElementById('power-button-sound-down');
-        sound.currentTime = 0;
-        sound.play();
+        musicOn = !musicOn;
     }
 
-    powerButton.onmouseup = function() {
-        const sound = document.getElementById('power-button-sound-up');
-        sound.currentTime = 0;
-        sound.play();
+    nextButton.onclick = function() {
+        currentTrack.pause();
+        currentTrack.currentTime = 0;
+
+        if (currentTrackIndex < music.length - 1) {
+             currentTrackIndex++
+        } 
+        else { 
+            currentTrackIndex = 0;
+        }
+        currentTrack = music[currentTrackIndex];
+        currentTrack.play();
+
+        musicOn = true;
+        pauseButton.style.backgroundImage = "url('./assets/pause-button-off.png')"; 
+
+        radioScreen.textContent = "Track: " + (currentTrackIndex + 1);
     }
 
+    prevButton.onclick = function() {
+        currentTrack.pause();
+        currentTrack.currentTime = 0;
+
+        if (currentTrackIndex > 0) {
+            currentTrackIndex--
+        } 
+        else { 
+            currentTrackIndex = music.length - 1;
+        }
+
+        currentTrack = music[currentTrackIndex];
+        currentTrack.play();
+
+        musicOn = true;
+        pauseButton.style.backgroundImage = "url('./assets/pause-button-off.png')"; 
+
+        radioScreen.textContent = "Track: " + (currentTrackIndex + 1);
+    }
+
+    powerButton.onmousedown = btnClickDownHeavy;
+    powerButton.onmouseup = btnClickUpHeavy;
+
+    nextButton.onmousedown = btnClickDownLight;
+    nextButton.onmouseup = btnClickUpLight;
+
+    prevButton.onmousedown = btnClickDownLight;
+    prevButton.onmouseup = btnClickUpLight;
+
+    pauseButton.onmousedown = btnClickDownLight;
+    pauseButton.onmouseup = btnClickUpLight;
+
+    //Hover effects
     powerButton.onmouseover = function() {
         if (computerOn) {
             powerButton.style.backgroundImage = "url('./assets/power-button-on-hover.png')";
@@ -77,6 +155,21 @@ document.addEventListener('DOMContentLoaded', function() {
         else {
             powerButton.style.backgroundImage = "url('./assets/power-button.png')";
         }     
+    }
+
+    pauseButton.onmouseover = function() {
+        if (musicOn) {
+            pauseButton.style.backgroundImage = "url('./assets/pause-button-on.png')";
+        }
+    }
+
+    pauseButton.onmouseout = function() {
+        if (musicOn) {
+            pauseButton.style.backgroundImage = "url('./assets/pause-button-off.png')"; 
+        }
+        else {
+            pauseButton.style.backgroundImage = "url('./assets/pause-button-on.png')"; 
+        }    
     }
 
     const mouse = document.querySelector('.mouse');
@@ -122,15 +215,6 @@ document.addEventListener('DOMContentLoaded', function() {
            sound.play();
         }
     }
-
-    const musicOne = document.getElementById('music-one');
-    const radio = document.getElementById('radio');
-
-    radio.onclick = function() {
-        musicOne.currentTime = 0;
-        musicOne.play();
-    }
-
 });
 
 
@@ -274,4 +358,28 @@ function toggleComputer() {
         scene.style.transform = 'translate(0%,0%) scale(1)';
     }
 
+}
+
+function btnClickUpHeavy() {
+    const sound = document.getElementById('power-button-sound-up');
+    sound.currentTime = 0;
+    sound.play();  
+}
+
+function btnClickDownHeavy() {
+    const sound = document.getElementById('power-button-sound-down');
+    sound.currentTime = 0;
+    sound.play();
+}
+
+function btnClickUpLight() {
+    const sound = document.getElementById('power-button-sound-up');
+    sound.currentTime = 0;
+    sound.play();  
+}
+
+function btnClickDownLight() {
+    const sound = document.getElementById('power-button-sound-down');
+    sound.currentTime = 0;
+    sound.play();
 }

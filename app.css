@@ -1,5 +1,6 @@
 body { 
-
+    font-family: monospace;
+    background-color: rgb(38, 61, 95);
     height: 100vh;
     width: 100vw;
 
@@ -16,43 +17,9 @@ body {
     color: white;
 }
 
-.crt-background {
-    position: absolute;
-    width: 100%;
-    height: 92.2%;
-    margin-top: 4%;
-    
-    border-radius: 5% / 85%;
 
 
-}
-
-.crt-background-top {
-    position: absolute;
-
-    width: 95%;
-    height: 100%;
-    margin-left: 2.5%;
-    background: radial-gradient(circle farthest-corner, #000000, #242424);
-    border-radius: 98% / 8.5%;
-
-}
-
-.crt-screen {
-    display: block;
-    width: 45%;
-
-    position: absolute;
-    top: 14%;
-    left: 13.5%;
-    overflow: hidden;
-
-    aspect-ratio: 1;
-    /*box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);*/
-    z-index: -1;
-}
-
-.crt-screen::before {
+/*.crt-screen::before {
     content: "";
     position: absolute;
     top: -50%;
@@ -67,22 +34,7 @@ body {
     );
     transform: scale(1.5);
     pointer-events: none;
-}
-
-.screen-content {
-    color: rgb(255, 255, 255);
-    font-family: monospace;
-
-    width: 100%;
-    height: 100%;
-
-    display: flex;
-    flex-direction: column;
-
-    overflow: hidden;
-
-    transform-style: preserve-3d;
-}
+}*/
 
 .screen-line {
     display: flex;
@@ -117,8 +69,6 @@ body {
 
     margin: 0;
 
-    z-index: 10;
-
     transition: transform 1s;
 }
 
@@ -126,7 +76,7 @@ body {
     position: relative;
     width: 100%;
     height: 100%;
-    background-image: url('./assets/backdrop.gif');
+    background-image: url('./assets/backdrop.png');
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -145,15 +95,46 @@ body {
 .computer {
     position: absolute;
 
-    aspect-ratio: 1;
     width: 30%;
+    aspect-ratio: 1;
     
     top: 31%;  
     left: 60%; 
+}
 
-    background-image: url("./assets/background.png");
+.screen-background {
+    background-color: black;
+
+    position:absolute;
+    top: 13%;
+    left: 13%;
+
+    width: 45%;
+    height: 47%;
+}
+
+.computer-border {
+    position:absolute;
+    top: 0%;
+    left: 0%;
+
+    width: 100%;
+    height: 100%;
+    background-image: url("./assets/computer.png");
     background-size:contain;
     background-repeat:no-repeat;
+}
+
+.screen-content {
+    color: white;
+    position:absolute;
+    top: 16.5%;
+    left: 16%;
+
+    width: 40%;
+    height: 40%;
+
+    overflow: scroll;
 }
 
 .radio {
@@ -173,8 +154,30 @@ body {
     background-repeat:no-repeat;
 }
 
-.power-button {
+#radio-screen {
+    position: absolute;
 
+    top: 50.5%;
+    left: 45%;
+
+    display: block;
+
+    width: 30%;
+    height: 20%;
+
+    color: rgb(201, 4, 4);
+    font-weight: bold;
+    font-size: 60%;
+
+    justify-content: center;
+    text-align: center;
+
+    pointer-events: none;
+
+    overflow: hidden;
+}
+
+.power-button {
     background-image: url("./assets/power-button-export.png");
     background-size: contain;
     background-repeat:no-repeat;
@@ -207,6 +210,88 @@ body {
     transition: all 0.1s;
 }
 
+.plant-01 {
+    display: block;
+    position: absolute;
+
+    height: 40%; 
+    
+    aspect-ratio: 0.5;
+    
+    left: 14%;
+    top: 32%;
+    
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    background-image: url("./assets/plant-01.png");
+    background-size: contain;
+    background-repeat:no-repeat;
+}
+
+.tea {
+    position: absolute;
+    width: 10%; 
+    height: 20%; 
+    
+    left: 35%;
+    top: 50%;
+    
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    background-image: url("./assets/tea.gif");
+    background-size: contain;
+    background-repeat:no-repeat;
+
+    transition: left 1s;
+}
+
+.pause-button {
+    position: absolute;
+    
+    background-image: url("./assets/pause-button-on.png");
+    background-size: contain;
+    background-repeat:no-repeat;
+
+    top: 53.5%;
+    left: 17.25%;
+
+    aspect-ratio: 1;
+    width: 10%;
+}
+
+.media-button {
+    background-image: url("./assets/next-button.png");
+    background-size: contain;
+    background-repeat:no-repeat;
+
+    position: absolute;
+
+    top: 53.5%;
+
+    aspect-ratio: 1;
+    width: 10%;
+}
+
+#next-button {
+    left: 30%;
+}
+
+#prev-button {
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+
+    position: absolute;
+    left: 5%;
+}
+
 img, .computer, .radio, .mouse .backdrop {
     image-rendering: crisp-edges;
     image-rendering: -moz-crisp-edges;
@@ -226,4 +311,25 @@ img, .computer, .radio, .mouse .backdrop {
     bottom: 0;
     left: 0;
     right: 0;
+}
+
+#poster {
+    display: block;
+    position: relative;
+
+    width: 20%; 
+
+
+    aspect-ratio: 1;
+    
+    left: 2%;
+    top: 21%;
+    
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    background-image: url("./assets/poster.png");
+    background-size: contain;
+    background-repeat:no-repeat;
 }
