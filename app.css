@@ -76,7 +76,7 @@ body {
     position: relative;
     width: 100%;
     height: 100%;
-    background-image: url('./assets/backdrop.png');
+    background-image: url('./assets/backdrop-2.png');
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -95,11 +95,11 @@ body {
 .computer {
     position: absolute;
 
-    width: 30%;
+    width: 20%;
     aspect-ratio: 1;
     
-    top: 31%;  
-    left: 60%; 
+    top: 44%;  
+    left: 55%; 
 }
 
 .screen-background {
@@ -111,6 +111,8 @@ body {
 
     width: 45%;
     height: 47%;
+
+    transition: background-color 1s ease-in;
 }
 
 .computer-border {
@@ -128,22 +130,25 @@ body {
 .screen-content {
     color: white;
     position:absolute;
-    top: 16.5%;
-    left: 16%;
+    top: calc(16.5% - 180%);
+    left: calc(16% - 179%);
 
-    width: 40%;
-    height: 40%;
+    font-size: 500%;
+    scale: 0.1 !important;
+
+    width: 400%;
+    height: 400%;
 
     overflow: scroll;
 }
 
 .radio {
     position: absolute;
-    width: 10%; 
+    width: 15%; 
     height: 20%; 
     
-    left: 25%;
-    top: 39%;
+    left: 72%;
+    top: 52%;
     
     background-size: contain;
     background-repeat: no-repeat;
@@ -157,17 +162,19 @@ body {
 #radio-screen {
     position: absolute;
 
-    top: 50.5%;
-    left: 45%;
+    background-color: black;
+
+    top: 46%;
+    left: 57%;
 
     display: block;
 
-    width: 30%;
-    height: 20%;
+    width: 20%;
+    height: 14%;
 
     color: rgb(201, 4, 4);
     font-weight: bold;
-    font-size: 60%;
+    font-size: 70%;
 
     justify-content: center;
     text-align: center;
@@ -214,12 +221,12 @@ body {
     display: block;
     position: absolute;
 
-    height: 40%; 
+    height: 35%; 
     
     aspect-ratio: 0.5;
     
-    left: 14%;
-    top: 32%;
+    left: 17%;
+    top: 37%;
     
     background-size: contain;
     background-repeat: no-repeat;
@@ -232,11 +239,11 @@ body {
 
 .tea {
     position: absolute;
-    width: 10%; 
-    height: 20%; 
+    width: 5%; 
+    aspect-ratio: 0.5;
     
-    left: 35%;
-    top: 50%;
+    left: 39%;
+    top: 54%;
     
     background-size: contain;
     background-repeat: no-repeat;
@@ -246,7 +253,7 @@ body {
     background-size: contain;
     background-repeat:no-repeat;
 
-    transition: left 1s;
+    transition: left 1s ease;
 }
 
 .pause-button {
@@ -256,11 +263,11 @@ body {
     background-size: contain;
     background-repeat:no-repeat;
 
-    top: 53.5%;
-    left: 17.25%;
+    top: 46.5%;
+    left: 35.3%;
 
     aspect-ratio: 1;
-    width: 10%;
+    width: 8%;
 }
 
 .media-button {
@@ -270,14 +277,14 @@ body {
 
     position: absolute;
 
-    top: 53.5%;
+    top: 46.5%;
 
     aspect-ratio: 1;
-    width: 10%;
+    width: 8%;
 }
 
 #next-button {
-    left: 30%;
+    left: 45%;
 }
 
 #prev-button {
@@ -289,7 +296,7 @@ body {
     -ms-filter: "FlipH";
 
     position: absolute;
-    left: 5%;
+    left: 26%;
 }
 
 img, .computer, .radio, .mouse .backdrop {

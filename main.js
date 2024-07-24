@@ -10,6 +10,7 @@ let scene;
 let screenContent = document.getElementById("screen-content");
 let screen = document.getElementById("crt-screen");
 let powerButton = document.getElementById("power-button");
+let screenBackground;
 
 //State variables
 let computerOn = false;
@@ -34,6 +35,7 @@ const music = [];
 document.addEventListener('DOMContentLoaded', function() {
     scene = document.getElementById("scene");
     screenContent = document.getElementById("screen-content");
+    screenBackground = document.getElementById("screen-background");
     screen = document.getElementById("crt-screen");
     powerButton = document.getElementById("power-button");
     const nextButton = document.getElementById("next-button");
@@ -64,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (computerOn) {
             powerButton.style.backgroundImage = "url('./assets/power-button-on.png')";
-            teaMug.style.left = 53 + '%';
+            teaMug.style.left = 68.5 + '%';
         }
         else {
             powerButton.style.backgroundImage = "url('./assets/power-button.png')";
@@ -352,10 +354,14 @@ function calculateColumns() {
 
 function toggleComputer() {
     if (computerOn) {
-        scene.style.transform = 'translate(-40%,0%) scale(2)';
+        scene.style.transform = 'translate(-30%,-20%) scale(2.5)';
+
+        screenBackground.style.backgroundColor = 'blue';
     }
     else {
         scene.style.transform = 'translate(0%,0%) scale(1)';
+
+        screenBackground.style.backgroundColor = 'black';
     }
 
 }
