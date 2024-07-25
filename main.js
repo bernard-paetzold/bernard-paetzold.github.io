@@ -13,6 +13,10 @@ let powerButton = document.getElementById("power-button");
 let screenBackground;
 let currentScreen;
 let screenBackdrop;
+let nextButton;
+let prevButton;
+let pauseButton;
+let radioScreen;
 
 
 
@@ -45,10 +49,10 @@ document.addEventListener('DOMContentLoaded', function() {
     screenBackdrop = document.getElementById("backdrop");
     screen = document.getElementById("crt-screen");
     powerButton = document.getElementById("power-button");
-    const nextButton = document.getElementById("next-button");
-    const prevButton = document.getElementById("prev-button");
-    const pauseButton = document.getElementById("pause-button");
-    const radioScreen = document.getElementById("radio-screen");
+    nextButton = document.getElementById("next-button");
+    prevButton = document.getElementById("prev-button");
+    pauseButton = document.getElementById("pause-button");
+    radioScreen = document.getElementById("radio-screen");
 
     //Desktop shortcuts
     const aboutShortcut = document.getElementById("about-shortcut");
@@ -60,6 +64,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     aboutScreen.textContent = "Born in South Africa I have lived all over the world, primarily in Mozambique. My father started teaching me Visual Basic when I was 10 and then C#. Having developed a passion for programming and a problem solving mindset I continued learning on my own and never plan to stop. Current technology related interests include teaching myself Rust and web-development."; 
 
+    music.push(document.getElementById('power-button-sound-down'));
+    music.push(document.getElementById('power-button-sound-down'));
     music.push(document.getElementById('track-01'));
     music.push(document.getElementById('track-02'));
     music.push(document.getElementById('track-03'));
@@ -68,8 +74,22 @@ document.addEventListener('DOMContentLoaded', function() {
     music.push(document.getElementById('track-06'));
     music.push(document.getElementById('track-07'));
 
+    //Radio initialisation
     currentTrack = music[currentTrackIndex];
     radioScreen.textContent = "Track: " + (currentTrackIndex + 1) + "\nPaused";
+    
+    currentTrack.addEventListener('ended', function() {
+        if (currentTrackIndex < music.length - 1) {
+            currentTrackIndex++
+       } 
+       else { 
+           currentTrackIndex = 0;
+       }
+        currentTrack = music[currentTrackIndex];
+        currentTrack.play();
+        musicOn = true;
+        radioScreen.textContent = "Track: " + (currentTrackIndex + 1);
+    });
 
     //renderText();
 
@@ -114,13 +134,8 @@ document.addEventListener('DOMContentLoaded', function() {
         else { 
             currentTrackIndex = 0;
         }
-        currentTrack = music[currentTrackIndex];
-        currentTrack.play();
 
-        musicOn = true;
-        pauseButton.style.backgroundImage = "url('./assets/pause-button-off.png')"; 
-
-        radioScreen.textContent = "Track: " + (currentTrackIndex + 1);
+        changeSong();
     }
 
     prevButton.onclick = function() {
@@ -128,19 +143,12 @@ document.addEventListener('DOMContentLoaded', function() {
         currentTrack.currentTime = 0;
 
         if (currentTrackIndex > 0) {
-            currentTrackIndex--
+            currentTrackIndex--;
         } 
         else { 
             currentTrackIndex = music.length - 1;
         }
-
-        currentTrack = music[currentTrackIndex];
-        currentTrack.play();
-
-        musicOn = true;
-        pauseButton.style.backgroundImage = "url('./assets/pause-button-off.png')"; 
-
-        radioScreen.textContent = "Track: " + (currentTrackIndex + 1);
+        changeSong();
     }
 
     powerButton.onmousedown = btnClickDownHeavy;
@@ -429,4 +437,30 @@ function resizeScene(transform, offset) {
     let scale = offset * Math.max(windowWidth / backdropWidth, windowHeight / backdropHeight);
     
     scene.style.transform =  `${transform} scale(${scale})`;
+}
+
+function changeSong() {
+    console.log("Next song");
+    currentTrack = music[currentTrackIndex];
+    currentTrack.play();
+
+    musicOn = true;
+    pauseButton.style.backgroundImage = "url('./assets/pause-button-off.png')"; 
+
+    radioScreen.textContent = "Track: " + (currentTrackIndex + 1);
+
+    currentTrack.addEventListener('ended', function() {
+        if (currentTrackIndex < music.length - 1) {
+            currentTrackIndex++
+       } 
+       else { 
+           currentTrackIndex = 0;
+       }
+        currentTrack = music[currentTrackIndex];
+        currentTrack.play();
+        musicOn = true;
+        radioScreen.textContent = "Track: " + (currentTrackIndex + 1);
+    });
+
+    currentTrack.play();
 }
