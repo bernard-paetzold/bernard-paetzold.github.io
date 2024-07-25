@@ -10,13 +10,17 @@ let scene;
 let screenContent = document.getElementById("screen-content");
 let screen = document.getElementById("crt-screen");
 let powerButton = document.getElementById("power-button");
-let screenBackground;let currentScreen;
+let screenBackground;
+let currentScreen;
+let screenBackdrop;
 
 
 
 //State variables
 let computerOn = false;
 let musicOn = false;
+const zoomLevel = 2.2;
+const zoomTranslate = 'translate(-30%,-15%)'; 
 
 const fontSize = 18;
 const textSpacing = 1.2;
@@ -38,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
     scene = document.getElementById("scene");
     screenContent = document.getElementById("screen-content");
     screenBackground = document.getElementById("screen-background");
+    screenBackdrop = document.getElementById("backdrop");
     screen = document.getElementById("crt-screen");
     powerButton = document.getElementById("power-button");
     const nextButton = document.getElementById("next-button");
@@ -223,8 +228,8 @@ document.addEventListener('DOMContentLoaded', function() {
             mouse.src = './assets/mouse.png'; 
 
             const sound = document.getElementById('click-sound-up');
-           sound.currentTime = 0;
-           sound.play();
+            sound.currentTime = 0;
+            sound.play();
         }
     }
 
@@ -234,6 +239,17 @@ document.addEventListener('DOMContentLoaded', function() {
         aboutScreen.style.display = "inline";
         currentScreen = aboutScreen;
     };
+
+    window.addEventListener('resize', function() {
+        if (computerOn) {
+            resizeScene(zoomTranslate, zoomLevel); 
+        }
+        else {
+            resizeScene('translate(0%,0%)', 1);     
+        }
+    }, true);
+
+    resizeScene('translate(0%,0%)', 1); 
 });
 
 
@@ -354,7 +370,6 @@ function calculateFontSize() {
     return Math.max(8, Math.min(18, window.innerWidth / 100)); 
 }
 
-
 function calculateRows() {
     return Math.floor(screen.getBoundingClientRect().height / calculateFontSize());
 }
@@ -367,14 +382,13 @@ function calculateColumns() {
 
 function toggleComputer() {
     if (computerOn) {
-        scene.style.transform = 'translate(-30%,-20%) scale(2.5)';
+        resizeScene(zoomTranslate, zoomLevel);
 
         screenBackground.style.backgroundColor = 'blue';
         screenContent.style.opacity = '100%';
     }
     else {
-        scene.style.transform = 'translate(0%,0%) scale(1)';
-
+        resizeScene('translate(0%,0%)', 1);       
         screenBackground.style.backgroundColor = 'black';
         screenContent.style.opacity = '0%';
     }
@@ -405,3 +419,14 @@ function btnClickDownLight() {
     sound.play();
 }
 
+function resizeScene(transform, offset) {
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+
+    const backdropWidth = screenBackdrop.offsetWidth;
+    const backdropHeight = screenBackdrop.offsetHeight;
+
+    let scale = offset * Math.max(windowWidth / backdropWidth, windowHeight / backdropHeight);
+    
+    scene.style.transform =  `${transform} scale(${scale})`;
+}
