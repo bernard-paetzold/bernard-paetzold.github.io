@@ -64,8 +64,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     aboutScreen.textContent = "Born in South Africa I have lived all over the world, primarily in Mozambique. My father started teaching me Visual Basic when I was 10 and then C#. Having developed a passion for programming and a problem solving mindset I continued learning on my own and never plan to stop. Current technology related interests include teaching myself Rust and web-development."; 
 
-    music.push(document.getElementById('power-button-sound-down'));
-    music.push(document.getElementById('power-button-sound-down'));
     music.push(document.getElementById('track-01'));
     music.push(document.getElementById('track-02'));
     music.push(document.getElementById('track-03'));
@@ -440,7 +438,8 @@ function resizeScene(transform, offset) {
 }
 
 function changeSong() {
-    console.log("Next song");
+    currentTrack.pause();
+    currentTrack.currentTime = 0;
     currentTrack = music[currentTrackIndex];
     currentTrack.play();
 
