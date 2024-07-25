@@ -10,7 +10,9 @@ let scene;
 let screenContent = document.getElementById("screen-content");
 let screen = document.getElementById("crt-screen");
 let powerButton = document.getElementById("power-button");
-let screenBackground;
+let screenBackground;let currentScreen;
+
+
 
 //State variables
 let computerOn = false;
@@ -43,6 +45,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const pauseButton = document.getElementById("pause-button");
     const radioScreen = document.getElementById("radio-screen");
 
+    //Desktop shortcuts
+    const aboutShortcut = document.getElementById("about-shortcut");
+
+    //Computer screens
+    const desktop = document.getElementById("desktop");
+    currentScreen = desktop;
+    const aboutScreen = document.getElementById("about-screen");
+
+    aboutScreen.textContent = "Born in South Africa I have lived all over the world, primarily in Mozambique. My father started teaching me Visual Basic when I was 10 and then C#. Having developed a passion for programming and a problem solving mindset I continued learning on my own and never plan to stop. Current technology related interests include teaching myself Rust and web-development."; 
+
     music.push(document.getElementById('track-01'));
     music.push(document.getElementById('track-02'));
     music.push(document.getElementById('track-03'));
@@ -53,8 +65,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     currentTrack = music[currentTrackIndex];
     radioScreen.textContent = "Track: " + (currentTrackIndex + 1) + "\nPaused";
-
-    screenContent.textContent = "Hello world testing text wrapping";
 
     //renderText();
 
@@ -185,10 +195,10 @@ document.addEventListener('DOMContentLoaded', function() {
             let mouseYPercent = (e.clientY / windowHeight) * 100;
 
             // Move virtual mouse
-            mouse.style.left = mouseXPercent / 2 + '%';
-            mouse.style.top = mouseYPercent / 10 + '%';
+            mouse.style.left = (mouseXPercent / 2 - 20) + '%';
+            mouse.style.top = (mouseYPercent / 2 - 30) + '%';
 
-            let scale = 0.8 + (mouseYPercent / 200);  // Scale between 50% and 100%
+            let scale = 0.9 + (mouseYPercent / 200);  // Scale between 50% and 100%
             mouse.style.transform = `scale(${scale})`;
         }
         else {
@@ -217,29 +227,36 @@ document.addEventListener('DOMContentLoaded', function() {
            sound.play();
         }
     }
+
+    //Desktop behavior
+    aboutShortcut.onclick = function() {
+        currentScreen.style.display = "none";
+        aboutScreen.style.display = "inline";
+        currentScreen = aboutScreen;
+    };
 });
 
 
 function animateCursor() {
     cursor_visible = !cursor_visible;
-    //renderText();
+    renderText();
 }
 
 
 setInterval(animateCursor, 1000);
 
 function renderText() {
-    screenContent.innerHTML = ''; 
+    /*screenContent.innerHTML = ''; 
 
-    console_text = console_history + '\n' + username + input_text + (cursor_visible ? '_' : "");
+    screenContent.textContent = console_history + "\n" + username + input_text + (cursor_visible ? '_' : "");
 
     let xPos = 0;
     let yPos = 0;
 
-    let lines = console_text.split('\n');
+    let lines = console_text.split('\n');*/
 
 
-    for (let i = 0; i < lines.length && yPos < rows; i++) {
+    /*for (let i = 0; i < lines.length && yPos < rows; i++) {
         let words = lines[i].split(' ');   
 
         for (let l = 0; l < words.length; l++) {
@@ -285,10 +302,6 @@ function renderText() {
 
                 xPos += textSpacing;
 
-                /*if (xPos > columns) {
-                    xPos = 0;
-                    yPos += lineSpacing;
-                }*/
             }
             
             screenContent.appendChild(word);
@@ -297,7 +310,7 @@ function renderText() {
         }
         xPos = 0;
         yPos += lineSpacing;
-    }
+    }*/
 }
 
 
@@ -331,7 +344,7 @@ function handleKeyPress(event) {
             input_text += '\n';
         }
     }
-    //renderText();
+    renderText();
 }
 
 document.addEventListener('keydown', handleKeyPress);
@@ -357,11 +370,13 @@ function toggleComputer() {
         scene.style.transform = 'translate(-30%,-20%) scale(2.5)';
 
         screenBackground.style.backgroundColor = 'blue';
+        screenContent.style.opacity = '100%';
     }
     else {
         scene.style.transform = 'translate(0%,0%) scale(1)';
 
         screenBackground.style.backgroundColor = 'black';
+        screenContent.style.opacity = '0%';
     }
 
 }
@@ -389,3 +404,4 @@ function btnClickDownLight() {
     sound.currentTime = 0;
     sound.play();
 }
+
