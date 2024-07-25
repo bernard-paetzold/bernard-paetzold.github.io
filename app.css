@@ -154,6 +154,9 @@ body {
     transition: opacity 1s ease-in;
 
     white-space: pre-wrap;
+
+
+    pointer-events: none;
 }
 
 
@@ -174,6 +177,9 @@ body {
 
     justify-content: center;
     justify-items: center;
+
+
+    pointer-events: all;
 
     cursor: pointer;
 }
@@ -205,8 +211,32 @@ body {
 
 #about-shortcut {
     position: absolute;
-    top:5%;
-    left: 5%;
+    top: calc(((110% / 3) * 0) + 5%);
+    left: calc(((110% / 3) * 0) + 7%);
+}
+
+#resume-shortcut {
+    position: absolute;
+    top: calc(((110% / 3) * 0) + 5%);
+    left: calc(((110% / 3) * 1) + 7%);
+}
+
+#projects-shortcut {
+    position: absolute;
+    top: calc(((110% / 3) * 0) + 5%);
+    left: calc(((110% / 3) * 2) + 7%);
+}
+
+#skills-shortcut {
+    position: absolute;
+    top: calc(((110% / 3) * 1) + 5%);
+    left: calc(((110% / 3) * 0) + 7%);
+}
+
+#contact-shortcut {
+    position: absolute;
+    top: calc(((110% / 3) * 1) + 10%);
+    left: calc(((110% / 3) * 1) + 7%);
 }
 
 /* Screens */
@@ -216,7 +246,25 @@ body {
     display: none;
 }
 
+#resume-screen {
+    overflow: scroll;
+    display: none;
+}
 
+#projects-screen {
+    overflow: scroll;
+    display: none;
+}
+
+#skills-screen {
+    overflow: scroll;
+    display: none;
+}
+
+#contact-screen {
+    overflow: scroll;
+    display: none;
+}
 
 .radio {
     position: absolute;
