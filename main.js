@@ -54,6 +54,30 @@ document.addEventListener('DOMContentLoaded', function() {
     pauseButton = document.getElementById("pause-button");
     radioScreen = document.getElementById("radio-screen");
 
+    //Preload images
+    preload(
+        "backdrop-2.png", 
+        "backdrop.png", 
+        "background.png", 
+        "computer.png", 
+        "folder-icon.png", 
+        "mouse-clicking.png", 
+        "mouse.png", 
+        "next-button.png", 
+        "pause-button-off.png", 
+        "pause-button-on.png", 
+        "plant-01.png", 
+        "poster.png", 
+        "power-button-export.png", 
+        "power-button-hover.png", 
+        "power-button-on-hover.png", 
+        "power-button-on.png", 
+        "power-button-pressed.png", 
+        "power-button.png", 
+        "radio.png", 
+        "tea.gif"
+    )
+
     //Desktop shortcuts
     const aboutShortcut = document.getElementById("about-shortcut");
 
@@ -462,4 +486,12 @@ function changeSong() {
     });
 
     currentTrack.play();
+}
+
+var images = [];
+function preload() {
+    for (var i = 0; i < arguments.length; i++) {
+        images[i] = new Image();
+        images[i].src = preload.arguments[i];
+    }
 }
