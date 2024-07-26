@@ -97,11 +97,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     //Desktop shortcuts
     const aboutShortcut = document.getElementById("about-shortcut");
+    const resumeShortcut = document.getElementById("resume-shortcut");
+    const projectsShortcut = document.getElementById("projects-shortcut");
+    const skillsShortcut = document.getElementById("skills-shortcut");
+    const contactShortcut = document.getElementById("contact-shortcut");
 
     //Computer screens
     const desktop = document.getElementById("desktop");
     currentScreen = desktop;
     const aboutScreen = document.getElementById("about-screen");
+    const resumeScreen = document.getElementById("resume-screen");
+    const projectsScreen = document.getElementById("projects-screen");
+    const skillsScreen = document.getElementById("skills-screen");
+    const contactScreen = document.getElementById("contact-screen");
+
 
     //aboutScreen.textContent = "Born in South Africa I have lived all over the world, primarily in Mozambique. My father started teaching me Visual Basic when I was 10 and then C#. Having developed a passion for programming and a problem solving mindset I continued learning on my own and never plan to stop. Current technology related interests include teaching myself Rust and web-development."; 
 
@@ -325,6 +334,42 @@ document.addEventListener('DOMContentLoaded', function() {
         aboutScreen.style.display = 'block';
         aboutScreen.style.opacity = "100%";
         currentScreen = aboutScreen;
+
+        toggleFullscreenComputer();
+    };
+
+    resumeShortcut.onclick = function() {
+        currentScreen.style.opacity = "0%";
+        resumeScreen.style.display = 'block';
+        resumeScreen.style.opacity = "100%";
+        currentScreen = resumeScreen;
+
+        toggleFullscreenComputer();
+    };
+
+    projectsShortcut.onclick = function() {
+        currentScreen.style.opacity = "0%";
+        projectsScreen.style.display = 'block';
+        projectsScreen.style.opacity = "100%";
+        currentScreen = projectsScreen;
+
+        toggleFullscreenComputer();
+    };
+
+    skillsShortcut.onclick = function() {
+        currentScreen.style.opacity = "0%";
+        skillsScreen.style.display = 'block';
+        skillsScreen.style.opacity = "100%";
+        currentScreen = skillsScreen;
+
+        toggleFullscreenComputer();
+    };
+
+    contactShortcut.onclick = function() {
+        currentScreen.style.opacity = "0%";
+        contactScreen.style.display = 'block';
+        contactScreen.style.opacity = "100%";
+        currentScreen = contactScreen;
 
         toggleFullscreenComputer();
     };
