@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
         "next-button.png", 
         "pause-button-off.png", 
         "pause-button-on.png", 
-        "plant-01.png", 
+        "plant-01.gif", 
         "poster.png", 
         "power-button-export.png", 
         "power-button-hover.png", 
