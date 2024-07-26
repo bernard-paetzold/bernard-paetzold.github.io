@@ -7,6 +7,7 @@ let cursor_visible = false;
 
 //Elements
 let scene;
+let computer;
 let screenContent = document.getElementById("screen-content");
 let screen = document.getElementById("crt-screen");
 let powerButton = document.getElementById("power-button");
@@ -18,13 +19,21 @@ let prevButton;
 let pauseButton;
 let radioScreen;
 
+//Fullscreen computer
+let fullscreenComputer;
+let fullscreenPowerButton;
+let fullscreenBackground;
+
 
 
 //State variables
 let computerOn = false;
+let computerFullscreen = false;
 let musicOn = false;
-const zoomLevel = 2.2;
-const zoomTranslate = 'translate(-30%,-15%)'; 
+const zoomLevel = 2;
+const zoomTransform = 'translate(-30%,-15%)'; 
+const phoneZoomTransform = 'translate(-30%,-15%)'; 
+
 
 const fontSize = 18;
 const textSpacing = 1.2;
@@ -44,8 +53,10 @@ const music = [];
 
 document.addEventListener('DOMContentLoaded', function() {
     scene = document.getElementById("scene");
+    computer = document.getElementById("computer");
     screenContent = document.getElementById("screen-content");
     screenBackground = document.getElementById("screen-background");
+    
     screenBackdrop = document.getElementById("backdrop");
     screen = document.getElementById("crt-screen");
     powerButton = document.getElementById("power-button");
@@ -53,6 +64,12 @@ document.addEventListener('DOMContentLoaded', function() {
     prevButton = document.getElementById("prev-button");
     pauseButton = document.getElementById("pause-button");
     radioScreen = document.getElementById("radio-screen");
+
+    fullscreenComputer = document.getElementById("fullscreen-computer");
+
+    fullscreenPowerButton = document.getElementById("fullscreen-power-button");
+    fullscreenPowerButton.style.backgroundImage = "url('./assets/power-button-on.png')";
+    fullscreenBackground = document.getElementById("fullscreen-background");
 
     //Preload images
     preload(
@@ -86,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
     currentScreen = desktop;
     const aboutScreen = document.getElementById("about-screen");
 
-    aboutScreen.textContent = "Born in South Africa I have lived all over the world, primarily in Mozambique. My father started teaching me Visual Basic when I was 10 and then C#. Having developed a passion for programming and a problem solving mindset I continued learning on my own and never plan to stop. Current technology related interests include teaching myself Rust and web-development."; 
+    //aboutScreen.textContent = "Born in South Africa I have lived all over the world, primarily in Mozambique. My father started teaching me Visual Basic when I was 10 and then C#. Having developed a passion for programming and a problem solving mindset I continued learning on my own and never plan to stop. Current technology related interests include teaching myself Rust and web-development."; 
 
     music.push(document.getElementById('track-01'));
     music.push(document.getElementById('track-02'));
@@ -123,6 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (computerOn) {
             powerButton.style.backgroundImage = "url('./assets/power-button-on.png')";
+            fullscreenPowerButton.style.backgroundImage = "url('./assets/power-button-on.png')";
             teaMug.style.left = 68.5 + '%';
         }
         else {
@@ -131,6 +149,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
         //Make computer fullscreen
         toggleComputer();
+    }
+
+    fullscreenPowerButton.onclick = function() {
+        computerOn = !computerOn;
+
+        if (computerOn) {
+            powerButton.style.backgroundImage = "url('./assets/power-button-on.png')";
+            teaMug.style.left = 68.5 + '%';
+        }
+        else {
+            powerButton.style.backgroundImage = "url('./assets/power-button.png')";
+        }
+
+        //Make computer fullscreen
+        toggleFullscreenComputer();
+        toggleComputer();
+        resizeScene(false, 1);
     }
 
     pauseButton.onclick = function() {
@@ -176,6 +211,9 @@ document.addEventListener('DOMContentLoaded', function() {
     powerButton.onmousedown = btnClickDownHeavy;
     powerButton.onmouseup = btnClickUpHeavy;
 
+    fullscreenPowerButton.onmousedown = btnClickDownHeavy;
+    fullscreenPowerButton.onmouseup = btnClickUpHeavy;
+
     nextButton.onmousedown = btnClickDownLight;
     nextButton.onmouseup = btnClickUpLight;
 
@@ -202,6 +240,24 @@ document.addEventListener('DOMContentLoaded', function() {
         else {
             powerButton.style.backgroundImage = "url('./assets/power-button.png')";
         }     
+    }
+
+    fullscreenPowerButton.onmouseover = function() {
+        if (computerOn) {
+            fullscreenPowerButton.style.backgroundImage = "url('./assets/power-button-on-hover.png')";
+        }
+        else {
+            fullscreenPowerButton.style.backgroundImage = "url('./assets/power-button-hover.png')";
+        }
+    }
+    
+    fullscreenPowerButton.onmouseout = function() {
+        if (computerOn) {
+            fullscreenPowerButton.style.backgroundImage = "url('./assets/power-button-on.png')";
+        }
+        else {
+            fullscreenPowerButton.style.backgroundImage = "url('./assets/power-button.png')";
+        } 
     }
 
     pauseButton.onmouseover = function() {
@@ -265,21 +321,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
     //Desktop behavior
     aboutShortcut.onclick = function() {
-        currentScreen.style.display = "none";
-        aboutScreen.style.display = "inline";
+        currentScreen.style.opacity = "0%";
+        aboutScreen.style.display = 'block';
+        aboutScreen.style.opacity = "100%";
         currentScreen = aboutScreen;
+
+        toggleFullscreenComputer();
     };
 
     window.addEventListener('resize', function() {
         if (computerOn) {
-            resizeScene(zoomTranslate, zoomLevel); 
+            resizeScene(true, zoomLevel); 
         }
         else {
-            resizeScene('translate(0%,0%)', 1);     
+            resizeScene(false, 1);     
         }
     }, true);
 
-    resizeScene('translate(0%,0%)', 1); 
+    resizeScene(false, 1); 
 });
 
 
@@ -412,15 +471,22 @@ function calculateColumns() {
 
 function toggleComputer() {
     if (computerOn) {
-        resizeScene(zoomTranslate, zoomLevel);
+        resizeScene(true, zoomLevel);
 
         screenBackground.style.backgroundColor = 'blue';
+        fullscreenBackground.style.backgroundColor = 'blue';
         screenContent.style.opacity = '100%';
     }
     else {
-        resizeScene('translate(0%,0%)', 1);       
+        resizeScene(false, 1);       
         screenBackground.style.backgroundColor = 'black';
+        fullscreenBackground.style.backgroundColor = 'black';
         screenContent.style.opacity = '0%';
+
+        currentScreen.style.opacity = "0%";
+        currentScreen.style.display = 'none';
+        desktop.style.opacity = "100%";
+        currentScreen = desktop;
     }
 
 }
@@ -449,7 +515,7 @@ function btnClickDownLight() {
     sound.play();
 }
 
-function resizeScene(transform, offset) {
+function resizeScene(doTransform, offset) {
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
 
@@ -457,8 +523,19 @@ function resizeScene(transform, offset) {
     const backdropHeight = screenBackdrop.offsetHeight;
 
     let scale = offset * Math.max(windowWidth / backdropWidth, windowHeight / backdropHeight);
-    
-    scene.style.transform =  `${transform} scale(${scale})`;
+    let translate = zoomTransform;
+
+    if (windowWidth / windowHeight < 0.7) {
+        //Phone scaling
+        translate = phoneZoomTransform;
+        scale = offset * Math.max(windowWidth / backdropWidth, windowHeight / backdropHeight) / 2;
+    }
+
+    if (!doTransform) {
+        translate = 'translate(0%,0%)';
+    }
+
+    scene.style.transform =  `${translate} scale(${scale})`;
 }
 
 function changeSong() {
@@ -494,4 +571,51 @@ function preload() {
         images[i] = new Image();
         images[i].src = preload.arguments[i];
     }
+}
+
+function toggleFullscreenComputer() {
+    //Make computer fullscreen
+    computerFullscreen = !computerFullscreen;
+    let fullscreenOffset = 10;
+
+    if (computerFullscreen) {
+        screenBackdrop.style.opacity = '0%';
+        //screenBackdrop.style.visibility = 'hidden';
+        computer.style.visibility = 'hidden';
+        fullscreenComputer.style.visibility = 'visible';
+        fullscreenComputer.style.width = '35%';
+
+        fullscreenComputer.style.top = (getElementPosition(fullscreenComputer).top - fullscreenOffset) + '%';
+        fullscreenComputer.style.left = (getElementPosition(fullscreenComputer).left - fullscreenOffset) + '%';
+
+    }
+    else {
+        screenBackdrop.style.opacity = '100%';
+        //screenBackdrop.style.visibility = 'visible';
+        fullscreenComputer.style.visibility = 'hidden';
+        fullscreenComputer.style.width = "";
+
+        fullscreenComputer.style.top = (getElementPosition(fullscreenComputer).top + fullscreenOffset) + '%';
+        fullscreenComputer.style.left = (getElementPosition(fullscreenComputer).left + fullscreenOffset) + '%';
+
+
+
+        computer.style.visibility = 'visible';
+    }
+}
+
+function getElementPosition(element) {
+    const parent = element.offsetParent || document.body;
+
+
+    const rect = element.getBoundingClientRect();
+    const parentRect = parent.getBoundingClientRect();
+
+    const leftPercent = ((rect.left - parentRect.left) / parentRect.width) * 100;
+    const topPercent = ((rect.top - parentRect.top) / parentRect.height) * 100;
+
+    return {
+        left: leftPercent,
+        top: topPercent
+    };
 }
