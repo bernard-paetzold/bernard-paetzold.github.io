@@ -290,6 +290,12 @@ body {
     background-image: url("./assets/radio.png");
     background-size: contain;
     background-repeat:no-repeat;
+
+    transition: transform 0.2s;
+}
+
+.radio:hover {
+    transform: scale(102%);
 }
 
 #radio-screen {
@@ -372,7 +378,31 @@ body {
     background-image: url("./assets/plant-01.gif");
     background-size: contain;
     background-repeat:no-repeat;
+
+    transition: transform 0.5s;
 }
+
+.plant-01:hover {
+    transform: scale(102%) translate(0%, -1%);
+}
+
+.plant-01:active {
+    animation: shake 1s;
+}
+
+@keyframes shake {
+    0% { transform: scale(102%) translate(0%, -1%) rotate(0deg); }
+    10% { transform: scale(102%) translate(0%, -1%) rotate(-1deg); }
+    20% { transform: scale(102%) translate(0%, -1%) rotate(1deg); }
+    30% { transform: scale(102%) translate(0%, -1%) rotate(0deg); }
+    40% { transform: scale(102%) translate(0%, -1%) rotate(1deg); }
+    50% { transform: scale(102%) translate(0%, -1%) rotate(-1deg); }
+    60% { transform: scale(102%) translate(0%, -1%) rotate(0deg); }
+    70% { transform: scale(102%) translate(0%, -1%) rotate(-1deg); }
+    80% { transform: scale(102%) translate(0%, -1%) rotate(1deg); }
+    90% { transform: scale(102%) translate(0%, -1%) rotate(0deg); }
+    100% { transform: scale(102%) translate(0%, -1%) rotate(-1deg); }
+  }
 
 .tea {
     position: absolute;
@@ -391,6 +421,15 @@ body {
     background-repeat:no-repeat;
 
     transition: left 1s ease;
+    transition: transform 0.2s;
+}
+
+.tea:hover {
+    transform: translate(0%, -1%);
+}
+
+.tea:active {
+    animation: shake 1s;
 }
 
 .pause-button {
@@ -472,6 +511,16 @@ body {
     background-image: url("./assets/poster.png");
     background-size: contain;
     background-repeat:no-repeat;
+
+    transition: transform 0.5s;
+}
+
+#poster:hover {
+    transform: scale(101%);
+}
+
+#poster:active {
+    transform: translate(20%) scale(130%);
 }
 
 /* Fullscreen computer */
