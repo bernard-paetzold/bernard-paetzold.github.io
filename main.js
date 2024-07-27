@@ -545,7 +545,7 @@ function toggleComputer() {
         screenContent.style.opacity = '0%';
 
         currentScreen.style.opacity = "0%";
-        currentScreen.style.display = 'none';
+        //currentScreen.style.display = 'none';
         desktop.style.opacity = "100%";
         currentScreen = desktop;
     }
