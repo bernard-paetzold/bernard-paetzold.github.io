@@ -73,26 +73,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
     //Preload images
     preload(
-        "backdrop-2.png", 
-        "backdrop.png", 
-        "background.png", 
-        "computer.png", 
-        "folder-icon.png", 
-        "mouse-clicking.png", 
-        "mouse.png", 
-        "next-button.png", 
-        "pause-button-off.png", 
-        "pause-button-on.png", 
-        "plant-01.gif", 
-        "poster.png", 
-        "power-button-export.png", 
-        "power-button-hover.png", 
-        "power-button-on-hover.png", 
-        "power-button-on.png", 
-        "power-button-pressed.png", 
-        "power-button.png", 
-        "radio.png", 
-        "tea.gif"
+        "./assets/backdrop-2.png", 
+        "./assets/backdrop.png", 
+        "./assets/background.png", 
+        "./assets/computer.png", 
+        "./assets/folder-icon.png", 
+        "./assets/mouse-clicking.png", 
+        "./assets/mouse.png", 
+        "./assets/next-button.png", 
+        "./assets/pause-button-off.png", 
+        "./assets/pause-button-on.png", 
+        "./assets/plant-01.gif", 
+        "./assets/poster.png", 
+        "./assets/power-button-export.png", 
+        "./assets/power-button-hover.png", 
+        "./assets/power-button-on-hover.png", 
+        "./assets/power-button-on.png", 
+        "./assets/power-button-pressed.png", 
+        "./assets/power-button.png", 
+        "./assets/radio.png", 
+        "./assets/tea.gif",
+        "./assets/enter-button-clicked",
+        "./assets/enter-button-hover",
+        "./assets/enter-button",
     )
 
     //Desktop shortcuts
@@ -111,8 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const skillsScreen = document.getElementById("skills-screen");
     const contactScreen = document.getElementById("contact-screen");
 
-
-    //aboutScreen.textContent = "Born in South Africa I have lived all over the world, primarily in Mozambique. My father started teaching me Visual Basic when I was 10 and then C#. Having developed a passion for programming and a problem solving mindset I continued learning on my own and never plan to stop. Current technology related interests include teaching myself Rust and web-development."; 
+    //Music
 
     music.push(document.getElementById('track-01'));
     music.push(document.getElementById('track-02'));
@@ -121,6 +123,14 @@ document.addEventListener('DOMContentLoaded', function() {
     music.push(document.getElementById('track-05'));
     music.push(document.getElementById('track-06'));
     music.push(document.getElementById('track-07'));
+
+    //Sounds
+    const breeze = document.getElementById("breeze");
+
+    //Welcome screen and blur
+    scene.classList.add("blur");
+    const acceptButton = document.getElementById("accept-button");
+    const welcomeMessage = document.getElementById("welcome-message");
 
     //Radio initialisation
     currentTrack = music[currentTrackIndex];
@@ -215,6 +225,12 @@ document.addEventListener('DOMContentLoaded', function() {
             currentTrackIndex = music.length - 1;
         }
         changeSong();
+    }
+
+    acceptButton.onclick = function() {
+        welcomeMessage.style.display = 'none';
+        scene.classList.remove("blur");
+        breeze.play();
     }
 
     powerButton.onmousedown = btnClickDownHeavy;

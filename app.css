@@ -517,3 +517,44 @@ img, .computer, .radio, .mouse .backdrop .fullscreen-computer .computer-border {
     image-rendering: -webkit-optimize-contrast;
     -ms-interpolation-mode: nearest-neighbor;
 }
+
+.message {
+    display: flex;
+    flex-direction: column;
+
+    width: 80%;
+    height: 100%;
+
+    position:absolute;
+    top: 0%;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 200%;
+
+}
+
+.blur {
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+}
+
+.enter-button {
+
+    width: 10rem;
+    aspect-ratio: 2.4;
+
+    cursor: pointer;
+}
+
+.enter-button:hover {
+    content: url("./assets/enter-button-hover.png");
+}
+
+.enter-button:active {
+    content: url("./assets/enter-button-clicked.png");
+}
