@@ -23,6 +23,7 @@ let radioScreen;
 let fullscreenComputer;
 let fullscreenPowerButton;
 let fullscreenBackground;
+let screenText;
 
 //Desktop colours
 const desktopColor = 'blue';
@@ -81,6 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
     fullscreenPowerButton = document.getElementById("fullscreen-power-button");
     fullscreenPowerButton.style.backgroundImage = "url('./assets/power-button-on.png')";
     fullscreenBackground = document.getElementById("fullscreen-background");
+    screenText = document.getElementById("screen-text");
 
     //Preload images
     preload(
@@ -593,11 +595,23 @@ function resizeScene(doTransform, offset) {
         for (var i=0; i<elements.length; i++) {
             elements[i].style.fontSize = '100%'
         }
+
+        var elements = document.querySelectorAll('.screen-text');
+
+        for (var i=0; i<elements.length; i++) {
+            elements[i].style.fontSize = '100%'
+        }
     }
     else {
         welcomeMessage.style.fontSize = '200%';
 
         var elements = document.querySelectorAll('.shortcut-text');
+
+        for (var i=0; i<elements.length; i++) {
+            elements[i].style.fontSize = '400%'
+        }
+
+        var elements = document.querySelectorAll('.screen-text');
 
         for (var i=0; i<elements.length; i++) {
             elements[i].style.fontSize = '400%'
@@ -658,9 +672,18 @@ function toggleFullscreenComputer() {
         fullscreenComputer.style.visibility = 'visible';
         fullscreenComputer.style.width = '35%';
 
-        fullscreenComputer.style.top = (getElementPosition(fullscreenComputer).top - fullscreenOffset) + '%';
-        fullscreenComputer.style.left = (getElementPosition(fullscreenComputer).left - fullscreenOffset / 2) + '%';
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
 
+        if (windowWidth / windowHeight < 0.7) {
+            fullscreenComputer.style.top = (getElementPosition(fullscreenComputer).top - fullscreenOffset) + '%';
+            fullscreenComputer.style.left = (getElementPosition(fullscreenComputer).left - fullscreenOffset * 1.1) + '%';
+        }
+        else {
+            fullscreenComputer.style.top = (getElementPosition(fullscreenComputer).top - fullscreenOffset) + '%';
+            fullscreenComputer.style.left = (getElementPosition(fullscreenComputer).left - fullscreenOffset / 2) + '%';
+        }
+        
         screenBackdrop.classList.add("blur");
 
         currentScreen.style.pointerEvents = 'all';
