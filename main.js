@@ -45,6 +45,8 @@ let musicOn = false;
 const zoomLevel = 2;
 const zoomTransform = 'translate(-30%,-15%)'; 
 const phoneZoomTransform = 'translate(-30%,-10%)'; 
+const defaultfontSize = '400%';
+const phoneFontSize = '100%';
 
 
 const fontSize = 18;
@@ -588,18 +590,18 @@ function resizeScene(doTransform, offset) {
         //Phone scaling
         translate = phoneZoomTransform;
         scale = offset * Math.max(windowWidth / backdropWidth, windowHeight / backdropHeight) / 2;
-        welcomeMessage.style.fontSize = '100%';
+        welcomeMessage.style.fontSize = phoneFontSize;
 
         var elements = document.querySelectorAll('.shortcut-text');
 
         for (var i=0; i<elements.length; i++) {
-            elements[i].style.fontSize = '100%'
+            elements[i].style.fontSize = phoneFontSize;
         }
 
         var elements = document.querySelectorAll('.screen-text');
 
         for (var i=0; i<elements.length; i++) {
-            elements[i].style.fontSize = '100%'
+            elements[i].style.fontSize = phoneFontSize;
         }
     }
     else {
@@ -608,13 +610,13 @@ function resizeScene(doTransform, offset) {
         var elements = document.querySelectorAll('.shortcut-text');
 
         for (var i=0; i<elements.length; i++) {
-            elements[i].style.fontSize = '400%'
+            elements[i].style.fontSize = defaultfontSize;
         }
 
         var elements = document.querySelectorAll('.screen-text');
 
         for (var i=0; i<elements.length; i++) {
-            elements[i].style.fontSize = '400%'
+            elements[i].style.fontSize = defaultfontSize;
         }
     }
 
@@ -662,6 +664,9 @@ function preload() {
 
 function toggleFullscreenComputer() {
     //Make computer fullscreen
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+
     computerFullscreen = !computerFullscreen;
     let fullscreenOffset = 10;
 
@@ -671,9 +676,6 @@ function toggleFullscreenComputer() {
         computer.style.visibility = 'hidden';
         fullscreenComputer.style.visibility = 'visible';
         fullscreenComputer.style.width = '35%';
-
-        const windowWidth = window.innerWidth;
-        const windowHeight = window.innerHeight;
 
         if (windowWidth / windowHeight < 0.7) {
             fullscreenComputer.style.top = (getElementPosition(fullscreenComputer).top - fullscreenOffset) + '%';
@@ -697,7 +699,14 @@ function toggleFullscreenComputer() {
         fullscreenComputer.style.top = (getElementPosition(fullscreenComputer).top + fullscreenOffset) + '%';
         fullscreenComputer.style.left = (getElementPosition(fullscreenComputer).left + fullscreenOffset / 2) + '%';
 
-
+        if (windowWidth / windowHeight < 0.7) {
+            fullscreenComputer.style.top = (getElementPosition(fullscreenComputer).top + fullscreenOffset) + '%';
+            fullscreenComputer.style.left = (getElementPosition(fullscreenComputer).left + fullscreenOffset * 1.1) + '%';
+        }
+        else {
+            fullscreenComputer.style.top = (getElementPosition(fullscreenComputer).top + fullscreenOffset) + '%';
+            fullscreenComputer.style.left = (getElementPosition(fullscreenComputer).left + fullscreenOffset / 2) + '%';
+        }
 
         computer.style.visibility = 'visible';
         screenBackdrop.classList.remove("blur");
