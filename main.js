@@ -24,6 +24,17 @@ let fullscreenComputer;
 let fullscreenPowerButton;
 let fullscreenBackground;
 
+//Desktop colours
+const desktopColor = 'blue';
+const aboutColor = 'blue';
+const projectsColor = 'black';
+const resumeColor = 'blue';
+const skillsColor = 'blue';
+const contactColor = 'blue';
+
+//Welcome screen
+let acceptButton;
+let welcomeMessage;
 
 
 //State variables
@@ -32,7 +43,7 @@ let computerFullscreen = false;
 let musicOn = false;
 const zoomLevel = 2;
 const zoomTransform = 'translate(-30%,-15%)'; 
-const phoneZoomTransform = 'translate(-30%,-15%)'; 
+const phoneZoomTransform = 'translate(-30%,-10%)'; 
 
 
 const fontSize = 18;
@@ -129,8 +140,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     //Welcome screen and blur
     scene.classList.add("blur");
-    const acceptButton = document.getElementById("accept-button");
-    const welcomeMessage = document.getElementById("welcome-message");
+    acceptButton = document.getElementById("accept-button");
+    welcomeMessage = document.getElementById("welcome-message");
 
     //Radio initialisation
     currentTrack = music[currentTrackIndex];
@@ -346,48 +357,33 @@ document.addEventListener('DOMContentLoaded', function() {
 
     //Desktop behavior
     aboutShortcut.onclick = function() {
-        currentScreen.style.opacity = "0%";
-        aboutScreen.style.display = 'block';
-        aboutScreen.style.opacity = "100%";
-        currentScreen = aboutScreen;
+        swapScreen(aboutScreen);
 
-        toggleFullscreenComputer();
+        fullscreenBackground.style.backgroundColor = aboutColor;
     };
 
     resumeShortcut.onclick = function() {
-        currentScreen.style.opacity = "0%";
-        resumeScreen.style.display = 'block';
-        resumeScreen.style.opacity = "100%";
-        currentScreen = resumeScreen;
+        swapScreen(resumeScreen);
 
-        toggleFullscreenComputer();
+        fullscreenBackground.style.backgroundColor = resumeColor;
     };
 
     projectsShortcut.onclick = function() {
-        currentScreen.style.opacity = "0%";
-        projectsScreen.style.display = 'block';
-        projectsScreen.style.opacity = "100%";
-        currentScreen = projectsScreen;
+        swapScreen(projectsScreen);
 
-        toggleFullscreenComputer();
+        fullscreenBackground.style.backgroundColor = projectsColor;
     };
 
     skillsShortcut.onclick = function() {
-        currentScreen.style.opacity = "0%";
-        skillsScreen.style.display = 'block';
-        skillsScreen.style.opacity = "100%";
-        currentScreen = skillsScreen;
+        swapScreen(skillsScreen);
 
-        toggleFullscreenComputer();
+        fullscreenBackground.style.backgroundColor = skillsColor;
     };
 
     contactShortcut.onclick = function() {
-        currentScreen.style.opacity = "0%";
-        contactScreen.style.display = 'block';
-        contactScreen.style.opacity = "100%";
-        currentScreen = contactScreen;
+        swapScreen(contactScreen);
 
-        toggleFullscreenComputer();
+        fullscreenBackground.style.backgroundColor = contactColor;
     };
 
     window.addEventListener('resize', function() {
@@ -534,8 +530,8 @@ function toggleComputer() {
     if (computerOn) {
         resizeScene(true, zoomLevel);
 
-        screenBackground.style.backgroundColor = 'blue';
-        fullscreenBackground.style.backgroundColor = 'blue';
+        screenBackground.style.backgroundColor = desktopColor;
+        fullscreenBackground.style.backgroundColor = desktopColor;
         screenContent.style.opacity = '100%';
     }
     else {
@@ -590,6 +586,22 @@ function resizeScene(doTransform, offset) {
         //Phone scaling
         translate = phoneZoomTransform;
         scale = offset * Math.max(windowWidth / backdropWidth, windowHeight / backdropHeight) / 2;
+        welcomeMessage.style.fontSize = '100%';
+
+        var elements = document.querySelectorAll('.shortcut-text');
+
+        for (var i=0; i<elements.length; i++) {
+            elements[i].style.fontSize = '100%'
+        }
+    }
+    else {
+        welcomeMessage.style.fontSize = '200%';
+
+        var elements = document.querySelectorAll('.shortcut-text');
+
+        for (var i=0; i<elements.length; i++) {
+            elements[i].style.fontSize = '400%'
+        }
     }
 
     if (!doTransform) {
@@ -647,8 +659,11 @@ function toggleFullscreenComputer() {
         fullscreenComputer.style.width = '35%';
 
         fullscreenComputer.style.top = (getElementPosition(fullscreenComputer).top - fullscreenOffset) + '%';
-        fullscreenComputer.style.left = (getElementPosition(fullscreenComputer).left - fullscreenOffset) + '%';
+        fullscreenComputer.style.left = (getElementPosition(fullscreenComputer).left - fullscreenOffset / 2) + '%';
 
+        screenBackdrop.classList.add("blur");
+
+        currentScreen.style.pointerEvents = 'all';
     }
     else {
         screenBackdrop.style.opacity = '100%';
@@ -657,11 +672,18 @@ function toggleFullscreenComputer() {
         fullscreenComputer.style.width = "";
 
         fullscreenComputer.style.top = (getElementPosition(fullscreenComputer).top + fullscreenOffset) + '%';
-        fullscreenComputer.style.left = (getElementPosition(fullscreenComputer).left + fullscreenOffset) + '%';
+        fullscreenComputer.style.left = (getElementPosition(fullscreenComputer).left + fullscreenOffset / 2) + '%';
 
 
 
         computer.style.visibility = 'visible';
+        screenBackdrop.classList.remove("blur");
+
+        screenBackground.style.backgroundColor = desktopColor;
+        fullscreenBackground.style.backgroundColor = desktopColor;
+
+        desktop.style.visibility = 'visible';
+        currentScreen.style.pointerEvents = 'none';
     }
 }
 
@@ -679,4 +701,16 @@ function getElementPosition(element) {
         left: leftPercent,
         top: topPercent
     };
+}
+
+function swapScreen(newScreen) {
+    currentScreen.style.opacity = "0%";
+    currentScreen.style.visibility = 'hidden';
+
+    currentScreen = newScreen;
+    currentScreen.style.display = 'block';
+    currentScreen.style.opacity = "100%";
+    currentScreen.style.visibility = 'visible';
+
+    toggleFullscreenComputer();
 }

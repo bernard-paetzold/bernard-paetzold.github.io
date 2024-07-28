@@ -15,6 +15,12 @@ body {
     margin: 0;
 
     color: white;
+
+    image-rendering: crisp-edges;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -o-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    -ms-interpolation-mode: nearest-neighbor;
 }
 
 .screen-line {
@@ -179,6 +185,10 @@ body {
     scale: 0.12 !important;
 }
 
+.phone-shortcut-text {
+    font-size: 100%;
+}
+
 .desktop-icon {
     position: absolute;
     top: 0%;
@@ -263,6 +273,8 @@ body {
 #projects-screen {
     opacity: 0%;
     display: none;
+
+    overflow-x: auto;
 }
 
 #skills-screen {
@@ -420,8 +432,8 @@ body {
     background-size: contain;
     background-repeat:no-repeat;
 
-    transition: left 1s ease;
     transition: transform 0.2s;
+    transition: left 1s;
 }
 
 .tea:hover {
@@ -559,7 +571,7 @@ body {
     overflow-x: hidden;
 }
 
-img, .computer, .radio, .mouse .backdrop .fullscreen-computer .computer-border {
+.computer, .radio, .mouse .backdrop .fullscreen-computer .computer-border {
     image-rendering: crisp-edges;
     image-rendering: -moz-crisp-edges;
     image-rendering: -o-crisp-edges;
@@ -580,8 +592,7 @@ img, .computer, .radio, .mouse .backdrop .fullscreen-computer .computer-border {
     justify-content: center;
     align-items: center;
 
-    font-size: 200%;
-
+    font-size: 100%;
 }
 
 .blur {
@@ -593,7 +604,7 @@ img, .computer, .radio, .mouse .backdrop .fullscreen-computer .computer-border {
 }
 
 .enter-button {
-
+    content: url("./assets/enter-button.png");
     width: 10rem;
     aspect-ratio: 2.4;
 
@@ -606,4 +617,9 @@ img, .computer, .radio, .mouse .backdrop .fullscreen-computer .computer-border {
 
 .enter-button:active {
     content: url("./assets/enter-button-clicked.png");
+}
+
+table, th, td {
+    border: 1px solid rgb(255, 255, 255);
+    padding: 1%;
 }
