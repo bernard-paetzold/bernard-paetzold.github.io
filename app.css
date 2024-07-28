@@ -68,10 +68,6 @@ body {
     background-position: center;
     background-repeat: no-repeat;
 
-    background-size: contain;
-    background-position: center;
-    background-repeat:no-repeat;
-
     image-rendering: crisp-edges;
     image-rendering: -moz-crisp-edges;
     image-rendering: -o-crisp-edges;
@@ -105,7 +101,7 @@ body {
     rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.479) 150%
     );
 
-    transition: background-color 1s ease-in;
+    transition: background-color 0.5s ease-in;
 }
 
 #screen-foreground {
@@ -126,15 +122,6 @@ body {
 
 .screen-content {
     color: white;
-    /*position:absolute;
-    top: calc(16.5% - 180%);
-    left: calc(15% - 179%);
-
-    font-size: 500%;
-    scale: 0.1 !important;
-
-    width: 400%;
-    height: 400%;*/
 
     position: absolute;
     top: calc(16.5%);
@@ -144,13 +131,6 @@ body {
     aspect-ratio: 1;
 
     opacity: 0%;
-
-    transition: opacity 1s ease-in;
-
-    /*white-space: pre-wrap;*/
-
-
-    pointer-events: all;
 }
 
 
@@ -216,6 +196,10 @@ body {
 
     overflow-y: auto;
     overflow-x: hidden;
+
+    transition: opacity 1s;
+
+    direction: rtl;
 }
 
 #desktop {
@@ -283,6 +267,7 @@ body {
 }
 
 #contact-screen {
+    color: black;
     opacity: 0%;
     display: none;
 }
@@ -546,7 +531,7 @@ body {
     left: 55%; 
 
 
-    transition: all 1s;
+    transition: all 0.8s;
 
     visibility: hidden;
 }
@@ -557,18 +542,24 @@ body {
 
 .screen-text {
     display: flex;
+    flex-direction: column;
 
     position: absolute;
     top: -300%;
     left: -200%;
 
-    width: 500%;
+    width: 495%;
     height: 750%;
 
     font-size: 400%;
     transform: scale(0.2) !important;
-    overflow-y: auto;
-    overflow-x: hidden;
+
+    text-align: left;
+
+    direction: ltr;
+
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 .computer, .radio, .mouse .backdrop .fullscreen-computer .computer-border {
@@ -622,4 +613,56 @@ body {
 table, th, td {
     border: 1px solid rgb(255, 255, 255);
     padding: 1%;
+
+    direction: ltr;
+}
+
+#contact-screen > span > table {
+    border-color: black;
+}
+
+#contact-screen > span > table > thead > tr {
+    border-color: black;
+}
+
+#contact-screen > span > table > thead > tr > th {
+    border-color: black;
+}
+
+#contact-screen > span > table > thead > tr > td {
+    border-color: black;
+}
+
+
+#contact-screen > span > table > tbody > tr {
+    border-color: black;
+}
+
+#contact-screen > span > table > tbody > tr > th {
+    border-color: black;
+}
+
+#contact-screen > span > table > tbody > tr > td {
+    border-color: black;
+}
+
+.back-button {
+    position: sticky;
+    top: 0%;
+    left: 90%;
+
+    width: 10%;
+    aspect-ratio: 1;
+    background-image: url('./assets/back-button.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.back-button:hover {
+    background-image: url('./assets/back-button-hover.png');
+}
+
+.back-button:active {
+    background-image: url('./assets/back-button-click.png');
 }

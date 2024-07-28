@@ -27,11 +27,11 @@ let screenText;
 
 //Desktop colours
 const desktopColor = 'blue';
-const aboutColor = 'blue';
-const projectsColor = 'black';
-const resumeColor = 'blue';
-const skillsColor = 'blue';
-const contactColor = 'blue';
+const aboutColor = '#1a6177';
+const projectsColor = '#6b6b99';
+const resumeColor = '#994a38';
+const skillsColor = '#730c0c';
+const contactColor = 'white';
 
 //Welcome screen
 let acceptButton;
@@ -45,7 +45,7 @@ let musicOn = false;
 const zoomLevel = 2;
 const zoomTransform = 'translate(-30%,-15%)'; 
 const phoneZoomTransform = 'translate(-30%,-10%)'; 
-const defaultfontSize = '400%';
+const defaultfontSize = '320%';
 const phoneFontSize = '100%';
 
 
@@ -248,6 +248,16 @@ document.addEventListener('DOMContentLoaded', function() {
         breeze.play();
     }
 
+    var backButtons = document.querySelectorAll('.back-button');
+
+    for (var i=0; i < backButtons.length; i++) {
+        backButtons[i].onclick = function() {
+            //toggleComputer();
+            //resizeScene(true, zoomLevel);
+            swapScreen(desktop);   
+        }
+    }
+
     powerButton.onmousedown = btnClickDownHeavy;
     powerButton.onmouseup = btnClickUpHeavy;
 
@@ -402,84 +412,6 @@ document.addEventListener('DOMContentLoaded', function() {
     resizeScene(false, 1); 
 });
 
-
-function animateCursor() {
-    cursor_visible = !cursor_visible;
-    renderText();
-}
-
-
-setInterval(animateCursor, 1000);
-
-function renderText() {
-    /*screenContent.innerHTML = ''; 
-
-    screenContent.textContent = console_history + "\n" + username + input_text + (cursor_visible ? '_' : "");
-
-    let xPos = 0;
-    let yPos = 0;
-
-    let lines = console_text.split('\n');*/
-
-
-    /*for (let i = 0; i < lines.length && yPos < rows; i++) {
-        let words = lines[i].split(' ');   
-
-        for (let l = 0; l < words.length; l++) {
-            let word = document.createElement("div");
-            word.className = "console-word";
-
-            const characters = words[l].split('');
-            wordWidth = characters.length * textSpacing;
-
-            if (xPos + wordWidth > columns) {
-                xPos = 0;
-                yPos += lineSpacing;
-            }
-
-            for (let k = 0; k < characters.length; k++) {
-                let character = characters[k];
-
-                const wrapper = document.createElement("div");
-
-                wrapper.className = "text-wrapper";
-                wrapper.textContent = character;
-
-                const xPercent = (xPos + k + 0.5) / columns * 100;
-                const yPercent = (yPos + 0.5) / rows * 100;
-                const distanceFromCenter = Math.sqrt(Math.pow((xPercent - 50) / 50, 2) + Math.pow((yPercent - 50) / 50, 2));
-                const scale = 1 - (distanceFromCenter * 0.3);
-
-                const zTranslation = Math.pow(distanceFromCenter, 2) * 100;
-
-                wrapper.style.left = `${xPercent}%`;
-                wrapper.style.top = `${yPercent}%`;
-
-                wrapper.style.transform = `
-                translate(-40%, -90%)
-                scale(${scale})
-                rotateX(${(yPercent - 50) * rotation}deg)
-                rotateY(${(xPercent - 50) * -rotation}deg)
-                translateZ(${zTranslation}px)`;
-
-                wrapper.style.fontSize = `${fontSize}px`;
-
-                word.appendChild(wrapper);
-
-                xPos += textSpacing;
-
-            }
-            
-            screenContent.appendChild(word);
-
-            xPos += wordWidth + textSpacing;
-        }
-        xPos = 0;
-        yPos += lineSpacing;
-    }*/
-}
-
-
 function handleKeyPress(event) {
     if (event.key === 'Enter') {
         //Process input
@@ -549,7 +481,6 @@ function toggleComputer() {
         desktop.style.opacity = "100%";
         currentScreen = desktop;
     }
-
 }
 
 function btnClickUpHeavy() {
